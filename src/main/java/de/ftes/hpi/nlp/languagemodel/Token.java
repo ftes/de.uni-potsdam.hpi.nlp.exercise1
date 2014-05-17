@@ -14,7 +14,7 @@ public class Token implements PartOfSpeech {
 	
 	@Override
 	public String toString() {
-		return text;
+		return text + "(" + tag + ")";
 	}
 	
 	@Override

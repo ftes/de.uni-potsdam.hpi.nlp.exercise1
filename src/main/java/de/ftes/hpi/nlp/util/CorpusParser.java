@@ -35,7 +35,7 @@ public class CorpusParser {
 					corpus.closeConstituent();
 					break;
 				case "tok":
-					corpus.addToken(el.getAttribute("cat"), el.getTextContent());
+					corpus.addToken(el.getTextContent(), el.getAttribute("cat"));
 					break;
 				default:
 					recursiveParse(corpus, el);

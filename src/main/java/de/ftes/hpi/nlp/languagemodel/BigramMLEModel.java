@@ -3,7 +3,7 @@ package de.ftes.hpi.nlp.languagemodel;
 import de.ftes.hpi.nlp.util.CountingHashMap;
 import de.ftes.hpi.nlp.util.Pair;
 
-public class BigramMLEModel implements LanguageModel {
+public class BigramMLEModel implements TokenLanguageModel {
 	private final CountingHashMap<String> unigrams = new CountingHashMap<>();
 	private final CountingHashMap<Pair<String, String>> bigrams = new CountingHashMap<>();
 	private final long numSentences;
@@ -26,11 +26,11 @@ public class BigramMLEModel implements LanguageModel {
 		}
 	}
 
-	private double probability(String unigram) {
-		return (unigrams.get(unigram) + 1.) / (numSentences + vocabSize);
+	private double beginningOfSentenceProb(String text) {
+		return (unigrams.get(text) + 1.) / (numSentences + vocabSize);
 	}
 
-	private double probability(String first, String second) {
+	private double textSequenceProb(String first, String second) {
 		return (bigrams.get(new Pair<>(first, second)) + 1.) / (unigrams.get(first) + vocabSize);
 	}
 
@@ -41,9 +41,9 @@ public class BigramMLEModel implements LanguageModel {
 		for (Token token : sentence) {
 			String text = token.getText().toLowerCase();
 			if (prevText == null) {
-				sum += Math.log(probability(text));
+				sum += Math.log(beginningOfSentenceProb(text));
 			} else {
-				sum += Math.log(probability(prevText, text));
+				sum += Math.log(textSequenceProb(prevText, text));
 			}
 			prevText = text;
 		}

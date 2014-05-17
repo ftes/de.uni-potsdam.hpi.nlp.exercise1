@@ -14,16 +14,22 @@ public class Corpus implements Iterable<Token> {
 	private Set<String> vocabulary = new HashSet<>();
 	private long numSentences = 0;
 	private long numTokens = 0;
+	private Set<String> tags = new HashSet<>();
 	
 	private Stack<Constituent> openConstituents = new Stack<>();
 	
 	public void addSentence(Sentence sentence) {
 		sentences.add(sentence);
 		for (Token token : sentence) {
-			vocabulary.add(token.getText());
-			numTokens++;
+			tokenAdded(token.getText(), token.getTag());
 		}
 		numSentences++;
+	}
+	
+	private void tokenAdded(String text, String tag) {
+		vocabulary.add(text);
+		tags.add(tag);
+		numTokens++;
 	}
 	
 	public void startSentence() {
@@ -49,10 +55,9 @@ public class Corpus implements Iterable<Token> {
 		openConstituents.pop();
 	}
 	
-	public void addToken(String tag, String text) {
+	public void addToken(String text,String tag) {
 		addPartOfSpeech(new Token(tag, text));
-		vocabulary.add(text);
-		numTokens++;
+		tokenAdded(text, tag);
 	}
 
 	public long getVocabularySize() {
@@ -65,6 +70,10 @@ public class Corpus implements Iterable<Token> {
 	
 	public long getNumTokens() {
 		return numTokens;
+	}
+	
+	public Set<String> getTagSet() {
+		return tags;
 	}
 	
 	@Override

@@ -1,16 +1,16 @@
 package de.ftes.hpi.nlp.util;
 
-import java.util.HashMap;
 
-public class CountingHashMap<K> extends HashMap<K, Long> {
+public class CountingHashMap<K> extends DefaultHashMap<K, Long> {
 	private static final long serialVersionUID = -7053138431923266161L;
-
-	@Override
-	public Long get(Object key) {
-		if (! containsKey(key)) {
-			return 0L;
-		}
-		return super.get(key);
+	
+	public CountingHashMap() {
+		super(new DefaultFactory<Long>() {
+			@Override
+			public Long getDefault() {
+				return 0L;
+			}
+		});
 	}
 	
 	public void increment(K key) {
