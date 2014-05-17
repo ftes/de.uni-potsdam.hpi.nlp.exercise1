@@ -22,11 +22,7 @@ public class Constituent implements PartOfSpeech {
 	public String getTag() {
 		return tag;
 	}
-
-	@Override
-	public List<PartOfSpeech> getPartsOfSpeech() {
-		return pos;
-	}
+	
 	@Override
 	public Iterator<Token> iterator() {
 		return Iterables.concat(pos).iterator();

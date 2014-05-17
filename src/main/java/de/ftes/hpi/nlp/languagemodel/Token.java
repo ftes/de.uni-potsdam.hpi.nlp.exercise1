@@ -22,13 +22,12 @@ public class Token implements PartOfSpeech {
 		return tag;
 	}
 	
+	public String getText() {
+		return text;
+	}
+	
 	@Override
 	public Iterator<Token> iterator() {
 		return Collections.singleton(this).iterator();
-	}
-
-	@Override
-	public Iterable<PartOfSpeech> getPartsOfSpeech() {
-		return Collections.singleton((PartOfSpeech) this);
 	}
 }

@@ -12,7 +12,7 @@ import org.xml.sax.SAXException;
 import de.ftes.hpi.nlp.languagemodel.Corpus;
 import de.ftes.hpi.nlp.util.CorpusParser;
 
-public class XmlFolderToCorpusTest {
+public class CorpusParserTest {
 
 	@Test
 	public void testParsing() throws URISyntaxException, SAXException, IOException, ParserConfigurationException {
