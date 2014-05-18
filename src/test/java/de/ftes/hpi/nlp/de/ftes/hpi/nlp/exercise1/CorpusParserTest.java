@@ -16,7 +16,7 @@ public class CorpusParserTest {
 
 	@Test
 	public void testParsing() throws URISyntaxException, SAXException, IOException, ParserConfigurationException {
-		Corpus corpus = CorpusParser.parse(new File(this.getClass().getResource("/").toURI()));
+		Corpus corpus = CorpusParser.parse(new File(this.getClass().getResource("/").toURI()), true);
 		
 		System.out.println(corpus.toString());
 	}

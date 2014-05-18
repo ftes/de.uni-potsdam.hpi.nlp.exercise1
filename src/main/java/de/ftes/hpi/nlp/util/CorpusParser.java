@@ -17,7 +17,7 @@ import org.xml.sax.SAXException;
 import de.ftes.hpi.nlp.languagemodel.Corpus;
 
 public class CorpusParser {	
-	private static void recursiveParse(Corpus corpus, Element element) {
+	private static void recursiveParse(Corpus corpus, Element element, boolean includeTokensWithNonAToZ) {
 		NodeList nodeList = element.getChildNodes();
 		for (int i=0; i<nodeList.getLength(); i++) {
 			Node node = nodeList.item(i);
@@ -27,24 +27,27 @@ public class CorpusParser {
 				switch (el.getNodeName()) {
 				case "sentence":
 					corpus.startSentence();
-					recursiveParse(corpus, el);
+					recursiveParse(corpus, el, includeTokensWithNonAToZ);
 					break;
 				case "cons":
 					corpus.openConstituent(el.getAttribute("cat"));
-					recursiveParse(corpus, el);
+					recursiveParse(corpus, el, includeTokensWithNonAToZ);
 					corpus.closeConstituent();
 					break;
 				case "tok":
-					corpus.addToken(el.getTextContent(), el.getAttribute("cat"));
+					String text = el.getTextContent();
+					if (includeTokensWithNonAToZ || text.matches("[A-Za-z]+")) {
+						corpus.addToken(el.getTextContent(), el.getAttribute("cat"));
+					}
 					break;
 				default:
-					recursiveParse(corpus, el);
+					recursiveParse(corpus, el, includeTokensWithNonAToZ);
 				}
 			}
 		}
 	}
 	
-	public static Corpus parse(File folder) throws SAXException, IOException, ParserConfigurationException {
+	public static Corpus parse(File folder, boolean includeTokensWithNonAToZ) throws SAXException, IOException, ParserConfigurationException {
 		Corpus corpus = new Corpus();
 		DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		File[] xmlFiles = folder.listFiles(new FilenameFilter() {
@@ -56,7 +59,7 @@ public class CorpusParser {
 		
 		for (File file : xmlFiles) {
 			Document doc = docBuilder.parse(file);
-			recursiveParse(corpus, doc.getDocumentElement());
+			recursiveParse(corpus, doc.getDocumentElement(), includeTokensWithNonAToZ);
 		}
 		
 		return corpus;

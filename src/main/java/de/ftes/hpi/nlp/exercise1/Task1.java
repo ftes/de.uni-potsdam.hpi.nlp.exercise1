@@ -17,12 +17,12 @@ import de.ftes.hpi.nlp.util.TrainingAndTestCorpus;
 
 public class Task1 {
 	public static void main(String[] args) throws SAXException, IOException, ParserConfigurationException, URISyntaxException {
-		Corpus corpus = CorpusParser.parse(new File(Task1.class.getResource("/GENIA_treebank_v1").toURI()));
+		Corpus corpus = CorpusParser.parse(new File(Task1.class.getResource("/GENIA_treebank_v1").toURI()), false);
 		
 		TrainingAndTestCorpus split = new TrainingAndTestCorpus(corpus, 0.9);
 		TokenLanguageModel modelOnTrainingSet = new BigramMLEModel(split.trainingSet());
 		double perplexity = Perplexity.calc(modelOnTrainingSet, split.testSet());
 		
-		System.out.println(perplexity);
+		System.out.println("Perplexity: " + perplexity);
 	}
 }
