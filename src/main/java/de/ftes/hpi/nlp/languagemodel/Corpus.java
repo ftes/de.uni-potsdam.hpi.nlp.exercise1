@@ -5,21 +5,19 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.Stack;
 
 import com.google.common.collect.Iterables;
 
-public class Corpus implements Iterable<Token> {	
-	private final List<Sentence> sentences = new ArrayList<>();
+public class Corpus implements Iterable<Token> {
+	private final List<Article> articles = new ArrayList<>();
+	private final List<Iterable<Sentence>> sentences = new ArrayList<>();
 	private Set<String> vocabulary = new HashSet<>();
 	private long numSentences = 0;
 	private long numTokens = 0;
 	private Set<String> tags = new HashSet<>();
 	
-	private Stack<Constituent> openConstituents = new Stack<>();
-	
 	public void addSentence(Sentence sentence) {
-		sentences.add(sentence);
+		articles.get(articles.size()-1).addSentence(sentence);
 		for (Token token : sentence) {
 			tokenAdded(token.getText(), token.getTag());
 		}
@@ -33,30 +31,25 @@ public class Corpus implements Iterable<Token> {
 	}
 	
 	public void startSentence() {
-		sentences.add(new Sentence());
+		articles.get(articles.size()-1).startSentence();
+	}
+	
+	public void startArticle() {
+		articles.add(new Article());
+		sentences.add(articles.get(articles.size()-1).getSentences());
 		numSentences++;
 	}
 	
-	private void addPartOfSpeech(PartOfSpeech pos) {
-		if (openConstituents.size() > 0) {
-			openConstituents.lastElement().addPartOfSpeech(pos);
-		} else {
-			sentences.get(sentences.size()-1).addPartOfSpeech(pos);
-		}
-	}
-	
 	public void openConstituent(String tag) {
-		Constituent newConstituent = new Constituent(tag);
-		addPartOfSpeech(newConstituent);
-		openConstituents.add(newConstituent);
+		articles.get(articles.size()-1).openConstituent(tag);
 	}
 	
 	public void closeConstituent() {
-		openConstituents.pop();
+		articles.get(articles.size()-1).closeConstituent();
 	}
 	
-	public void addToken(String text,String tag) {
-		addPartOfSpeech(new Token(tag, text));
+	public void addToken(String text, String tag) {
+		articles.get(articles.size()-1).addToken(text, tag);
 		tokenAdded(text, tag);
 	}
 
@@ -79,18 +72,29 @@ public class Corpus implements Iterable<Token> {
 	@Override
 	public String toString() {
 		String s = "";
-		for (Sentence sentence : sentences) {
-			s += sentence + "\n";
+		for (Article article : articles) {
+			s += article + "\n";
 		}
 		return s;
 	}
 
-	public List<Sentence> getSentences() {
-		return sentences;
+	public Iterable<Sentence> getSentences() {
+		return Iterables.concat(sentences);
 	}
 
 	@Override
 	public Iterator<Token> iterator() {
-		return Iterables.concat(sentences).iterator();
+		return Iterables.concat(articles).iterator();
+	}
+	
+	public Iterable<Article> getArticles() {
+		return articles;
+	}
+	
+	public void addArticle(Article article) {
+		startArticle();
+		for (Sentence sentence : article.getSentences()) {
+			addSentence(sentence);
+		}
 	}
 }

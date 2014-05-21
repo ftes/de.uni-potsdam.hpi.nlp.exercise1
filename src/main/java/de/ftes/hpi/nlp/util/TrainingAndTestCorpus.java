@@ -1,7 +1,7 @@
 package de.ftes.hpi.nlp.util;
 
+import de.ftes.hpi.nlp.languagemodel.Article;
 import de.ftes.hpi.nlp.languagemodel.Corpus;
-import de.ftes.hpi.nlp.languagemodel.Sentence;
 
 public class TrainingAndTestCorpus {
 	private final Corpus training;
@@ -11,11 +11,11 @@ public class TrainingAndTestCorpus {
 		training = new Corpus();
 		test = new Corpus();
 		
-		for (Sentence sentence : corpus.getSentences()) {
+		for (Article article : corpus.getArticles()) {
 			if (Math.random() < trainingFraction) {
-				training.addSentence(sentence);
+				training.addArticle(article);
 			} else {
-				test.addSentence(sentence);
+				test.addArticle(article);
 			}
 		}
 	}

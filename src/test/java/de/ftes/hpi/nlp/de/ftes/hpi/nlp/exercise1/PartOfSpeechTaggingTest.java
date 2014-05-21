@@ -11,6 +11,7 @@ public class PartOfSpeechTaggingTest {
 	@Test
 	public void tesViterbiAlg() {
 		Corpus corpus = new Corpus();
+		corpus.startArticle();
 		corpus.startSentence();
 		corpus.addToken("There", "PR");
 		corpus.addToken("are", "V");

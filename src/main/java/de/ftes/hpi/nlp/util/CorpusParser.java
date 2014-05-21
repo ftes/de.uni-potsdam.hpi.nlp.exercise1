@@ -25,6 +25,10 @@ public class CorpusParser {
 			if (node instanceof Element) {
 				Element el = (Element) node;
 				switch (el.getNodeName()) {
+				case "Article":
+					corpus.startArticle();
+					recursiveParse(corpus, el, includeTokensWithNonAToZ);
+					break;
 				case "sentence":
 					corpus.startSentence();
 					recursiveParse(corpus, el, includeTokensWithNonAToZ);

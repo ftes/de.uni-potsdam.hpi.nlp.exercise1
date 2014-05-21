@@ -19,6 +19,7 @@ public class LanguageModelTest {
 	
 	public static Corpus toCorpus(String... sentences) {
 		Corpus corpus = new Corpus();
+		corpus.startArticle();
 		for (String sentence : sentences) {
 			corpus.addSentence(toSentence(sentence));
 		}
