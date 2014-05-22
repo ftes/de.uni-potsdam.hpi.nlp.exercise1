@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE Annotation>
+<?xml-stylesheet type="text/css" href="GENIA_tree_bracket.css"?>
+<Annotation>
+<PubmedArticleSet>
+<PubmedArticle>
+<MedlineCitation>
+<PMID>10022882</PMID>
+<Article>
+<Abstract>
+<AbstractText><sentence id="S2"><cons cat="S"><cons cat="NP" role="SBJ"><tok cat="PRP">We</tok></cons> <cons cat="ADVP" adv="TMP"><tok cat="RB">previously</tok></cons> <cons cat="VP"><tok cat="VBD">reported</tok> <cons cat="SBAR"><tok cat="IN">that</tok> <cons cat="S"><cons cat="NP" role="SBJ"><cons cat="NP"><tok cat="DT">the</tok> <tok cat="NN">role</tok></cons> <cons cat="PP"><tok cat="IN">of</tok> <cons cat="NP"><cons cat="NP"><tok cat="JJ">reactive</tok> <tok cat="NN">oxygen</tok> <tok cat="NNS">intermediates</tok></cons> <cons cat="PRN"><tok cat="LRB">(</tok><cons cat="NP"><tok cat="NNS">ROIs</tok></cons><tok cat="RRB">)</tok></cons></cons></cons> <cons cat="PP"><tok cat="IN">in</tok> <cons cat="NP"><cons cat="NP"><tok cat="NN">NF-kappaB</tok> <tok cat="NN">activation</tok></cons> <cons cat="PP"><tok cat="IN">by</tok> <cons cat="NP"><tok cat="JJ">proinflammatory</tok> <tok cat="NNS">cytokines</tok></cons></cons></cons></cons></cons> <cons cat="VP"><tok cat="VBD">was</tok> <cons cat="ADJP" role="PRD"><tok cat="NN">cell</tok> <tok cat="JJ">specific</tok></cons></cons></cons></cons></cons><tok cat="PERIOD">.</tok></cons></sentence>
+</AbstractText>
+</Abstract>
+</Article>
+</MedlineCitation>
+</PubmedArticle>
+</PubmedArticleSet>
+</Annotation>
