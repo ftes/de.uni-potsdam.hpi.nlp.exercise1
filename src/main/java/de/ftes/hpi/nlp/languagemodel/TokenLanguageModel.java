@@ -8,4 +8,8 @@ public interface TokenLanguageModel {
 	 * @return
 	 */
 	double sentenceProbabilityLogarithm(Sentence sentence);
+	
+	double wordProbabilitiyGivenPrevious(String previous, String word);
+	
+	double wordProbabilityAtBeginningOfSentence(String word);
 }

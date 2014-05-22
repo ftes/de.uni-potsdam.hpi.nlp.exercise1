@@ -26,11 +26,13 @@ public class BigramMLEModel implements TokenLanguageModel {
 		}
 	}
 
-	private double beginningOfSentenceProb(String text) {
+	@Override
+	public double wordProbabilityAtBeginningOfSentence(String text) {
 		return (unigrams.get(text) + 1.) / (numSentences + vocabSize);
 	}
 
-	private double textSequenceProb(String first, String second) {
+	@Override
+	public double wordProbabilitiyGivenPrevious(String first, String second) {
 		return (bigrams.get(new Pair<>(first, second)) + 1.) / (unigrams.get(first) + vocabSize);
 	}
 
@@ -41,9 +43,9 @@ public class BigramMLEModel implements TokenLanguageModel {
 		for (Token token : sentence) {
 			String text = token.getText().toLowerCase();
 			if (prevText == null) {
-				sum += Math.log(beginningOfSentenceProb(text));
+				sum += Math.log(wordProbabilityAtBeginningOfSentence(text));
 			} else {
-				sum += Math.log(textSequenceProb(prevText, text));
+				sum += Math.log(wordProbabilitiyGivenPrevious(prevText, text));
 			}
 			prevText = text;
 		}
