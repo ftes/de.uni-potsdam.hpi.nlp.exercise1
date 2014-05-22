@@ -11,6 +11,8 @@ import de.ftes.hpi.nlp.languagemodel.Sentence;
  * x_i: sentence
  * m: number of sentences
  * 
+ * But here use base e instead of base 2.
+ * 
  * @see <a href="http://www.cs.columbia.edu/~mcollins/lm-spring2013.pdf">Formula for calculating perplexity.</a>
  * @author fredrik
  *
@@ -24,6 +26,6 @@ public class Perplexity {
 			sum += model.sentenceProbabilityLogarithm(s);
 		}
 		
-		return Math.pow(2, - sum / M);
+		return Math.exp(- sum / M);
 	}
 }
