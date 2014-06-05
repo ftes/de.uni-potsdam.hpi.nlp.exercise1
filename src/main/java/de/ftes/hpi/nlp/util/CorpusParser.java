@@ -51,7 +51,8 @@ public class CorpusParser {
 		}
 	}
 	
-	public static Corpus parse(File folder, boolean includeTokensWithNonAToZ) throws SAXException, IOException, ParserConfigurationException {
+	public static Corpus parse(File folder, boolean includeTokensWithNonAToZ)
+			throws SAXException, IOException, ParserConfigurationException {
 		Corpus corpus = new Corpus();
 		DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		File[] xmlFiles = folder.listFiles(new FilenameFilter() {

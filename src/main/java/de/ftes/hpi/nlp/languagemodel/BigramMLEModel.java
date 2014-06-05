@@ -16,7 +16,7 @@ public class BigramMLEModel implements TokenLanguageModel {
 		for (Sentence sentence : corpus.getSentences()) {
 			String prevText = null;
 			for (Token token : sentence) {
-				String text = token.getText().toLowerCase();
+				String text = token.getText();
 				unigrams.increment(text);
 				if (prevText != null) {
 					bigrams.increment(new Pair<>(prevText, text));
@@ -41,7 +41,7 @@ public class BigramMLEModel implements TokenLanguageModel {
 		String prevText = null;
 		double sum = 0;
 		for (Token token : sentence) {
-			String text = token.getText().toLowerCase();
+			String text = token.getText();
 			if (prevText == null) {
 				sum += Math.log(wordProbabilityAtBeginningOfSentence(text));
 			} else {

@@ -19,7 +19,7 @@ import de.ftes.hpi.nlp.util.TrainingAndTestCorpus;
 
 public class Task2 {
 	public static void main(String[] args) throws SAXException, IOException, ParserConfigurationException, URISyntaxException {
-		Corpus corpus = CorpusParser.parse(new File(Task1.class.getResource("/GENIA_treebank_v1").toURI()), false);
+		Corpus corpus = CorpusParser.parse(new File(Task1.class.getResource("/GENIA_treebank_v1").toURI()), /*non a-z*/ true);
 		
 		TrainingAndTestCorpus split = new TrainingAndTestCorpus(corpus, 0.9);
 		PartOfSpeechTagger tagger = new BaseLineModel(split.trainingSet());

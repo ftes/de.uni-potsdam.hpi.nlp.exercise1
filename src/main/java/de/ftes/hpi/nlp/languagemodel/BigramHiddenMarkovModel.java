@@ -19,7 +19,7 @@ public class BigramHiddenMarkovModel implements TagLanguageModel {
 		for (Sentence sentence : corpus.getSentences()) {
 			String prevTag = null;
 			for (Token token : sentence) {
-				String text = token.getText().toLowerCase();
+				String text = token.getText();
 				String tag = token.getTag();
 				tags.increment(tag);
 				tagsAndTexts.increment(new Pair<>(tag, text));
