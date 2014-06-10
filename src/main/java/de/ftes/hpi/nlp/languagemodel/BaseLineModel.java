@@ -31,7 +31,7 @@ public class BaseLineModel implements PartOfSpeechTagger {
 	public Iterable<Token> determineMostLikelyTags(Iterable<Token> sentence) {
 		List<Token> result = new ArrayList<>();
 		for (Token oldToken : sentence) {
-			Map<String, Long> tagCounts = tokenToTagOccurences.get(oldToken);
+			Map<String, Long> tagCounts = tokenToTagOccurences.get(oldToken.getText());
 			String newTag;
 			if (tagCounts.size() == 0) {
 				newTag = "NN";
